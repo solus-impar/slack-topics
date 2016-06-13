@@ -1,0 +1,7 @@
+.directory
+.DS_Store
+.~*
+config.py
+__pycache__
+*.py.swp
+*.pyc
