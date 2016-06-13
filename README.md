@@ -36,6 +36,7 @@ to one of thse pages.
 * Thursday & Friday: Random Wikipedia page
 * Saturday & Sunday: Top HN story
 
-Slack API: [api.slack.com](//api.slack.com/) \
-You should also check out [wb2k](//github.com/reillysiemens/wb2k/).
+Slack API: [api.slack.com](//api.slack.com/)
+
+You should also check out [wb2k](http://www.github.com/reillysiemens/wb2k/).
 
