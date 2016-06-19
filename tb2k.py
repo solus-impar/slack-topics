@@ -3,14 +3,21 @@
  # Author: Mike Canoy (canoym@students.wwu.edu)
  ##
 
+import sys
 from slackclient import SlackClient
 from datetime import date
-from config import *
 import os, random
 import wikipedia
 import requests
 
 def main():
+
+    token = os.environ.get('TB2K_TOKEN')
+    channel = os.environ.get('TB2K_CHANNEL') or 'general'
+
+    if not token:
+        sys.exit('tb2k: error: TB2K_TOKEN environment variable is not set')
+
     bot = SlackClient(token)
     if bot.rtm_connect():
         day = date.today().weekday()
