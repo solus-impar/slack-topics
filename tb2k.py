@@ -46,14 +46,42 @@ def main():
         # Sat Sun
         else:
             # Top HN story
-            url = "https://hacker-news.firebaseio.com/v0/topstories.json"
-            response = requests.get(url)
-            data = response.json()
-            url = "https://hacker-news.firebaseio.com/v0/item/"
-            url += str(data[0]) + ".json"
-            response = requests.get(url)
-            data = response.json()
+            hn_api = 'https://hacker-news.firebaseio.com/v0'
+
+            url = "{}/topstories.json".format(hn_api)
+
+            try:
+                response = requests.get(url)
+            except requests.ConnectionError:
+                sys.exit("tb2k: error: cannot connect to {}".format(url))
+
+            status_code = response.status_code
+            if status_code == 200:
+                try:
+                    data = response.json()
+                except ValueError:
+                    sys.exit("tb2k: error: invalid JSON at {}".format(url))
+            else:
+                sys.exit("tb2k: error: {} fetching {}".format(status_code, url))
+
+            url = "{}/item/{}.json".format(hn_api, data[0])
+
+            try:
+                response = requests.get(url)
+            except requests.ConnectionError:
+                sys.exit("tb2k: error: cannot connect to {}".format(url))
+
+            status_code = response.status_code
+            if status_code == 200:
+                try:
+                    data = response.json()
+                except ValueError:
+                    sys.exit("tb2k: error: invalid JSON at {}".format(url))
+            else:
+                sys.exit("tb2k: error: {} fetching {}".format(status_code, url))
+
             topic = data['title']
+
         # Add print() to see response in /var/mail/$user
         bot.api_call("channels.setTopic", token=token,
                      channel=channel, topic=topic)
