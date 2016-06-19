@@ -12,6 +12,28 @@ import wikipedia
 import requests
 
 
+def find_id(channel, bot):
+    """Find the ID of a channel and whether it is public or private."""
+    channels_list = bot.api_call("channels.list").get('channels')
+    groups_list = bot.api_call("groups.list").get('groups')
+
+    if not channels_list and not groups_list:
+        sys.exit('tb2k: error: couldn\'t enumerage channels/groups')
+
+    # There is probably a better way to do this.
+    channel_ids = [c['id'] for c in channels_list if c['name'] == channel]
+
+    if channel_ids:
+        return (channel_ids[0], 'channel')
+
+    group_ids = [g['id'] for g in groups_list if g['name'] == channel]
+
+    if group_ids:
+        return (group_ids[0], 'group')
+    else:
+        sys.exit("tb2k: error: couldn't find #{}".format(channel))
+
+
 def fetch_json(url):
     """Fetch data from a URL and attempt to parse it as JSON."""
     try:
@@ -93,8 +115,15 @@ def main():
         else:
             topic = top_hacker_news_story()
 
-        bot.api_call("channels.setTopic", token=token,
-                     channel=channel, topic=topic)
+        channel_id, channel_type = find_id(channel, bot)
+
+        # Try to set the channel topic.
+        response = bot.api_call("{}s.setTopic".format(channel_type),
+                                token=token, channel=channel_id, topic=topic)
+
+        # The bot MUST be in the channel already. Bots cannot join channels.
+        if not response['ok']:
+            sys.exit("tb2k: error: failed to set topic in #{}".format(channel))
 
 
 if __name__ == "__main__":
