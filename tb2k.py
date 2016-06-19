@@ -41,8 +41,10 @@ def main():
             topic = "{}({})".format(page.split('.')[0], sec)
         # Thur Fri
         elif day < 5:
-            # Random Wikipedia page
-            topic = wikipedia.random(pages=1)
+            # Random programming language from Wikipedia
+            title = 'List of programming languages'
+            page = wikipedia.WikipediaPage(title=title)
+            topic = random.choice(page.links)
         # Sat Sun
         else:
             # Top HN story
