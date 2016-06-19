@@ -26,11 +26,19 @@ def main():
         # Mon Tue Wed
         if day < 3:
             # Random man-page
-            sec = str(random.randrange(1, 9))
-            man_dir = "/usr/share/man/man" + sec + "/"
-            page = random.choice(os.listdir(man_dir))
-            page = page.split(".")
-            topic = page[0] + "(" + sec + ")"
+            sec = random.randrange(1, 9)
+            man_dir = "/usr/share/man/man{}/".format(sec)
+
+            try:
+                page = random.choice(os.listdir(man_dir))
+            except IndexError:
+                sys.exit("tb2k: error: no man pages in section {}".format(sec))
+            except FileNotFoundError:
+                sys.exit("tb2k: error: {} does not exist".format(man_dir))
+            except PermissionError:
+                sys.exit("tb2k: error: {}: permission denied".format(man_dir))
+
+            topic = "{}({})".format(page.split('.')[0], sec)
         # Thur Fri
         elif day < 5:
             # Random Wikipedia page
