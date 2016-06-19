@@ -3,13 +3,14 @@
 # Author: Mike Canoy (canoym@students.wwu.edu)
 ###
 
-import sys
-from slackclient import SlackClient
-from datetime import date
 import os
+import sys
 import random
-import wikipedia
+from datetime import date
+
 import requests
+import wikipedia
+from slackclient import SlackClient
 
 
 def find_id(channel, bot):
