@@ -1,6 +1,6 @@
 ###
 # tb2k: Slack Topic Bot
-# Author: Mike Canoy (canoym@students.wwu.edu)
+# Original Author: Mike Canoy (canoym@students.wwu.edu)
 ###
 
 import os
