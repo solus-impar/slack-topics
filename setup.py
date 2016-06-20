@@ -23,6 +23,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
     ],
+    py_modules=['tb2k'],
     entry_points={
         'console_scripts': [
             'tb2k=tb2k:main',
