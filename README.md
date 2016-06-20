@@ -11,7 +11,7 @@ pip install git+https://gitlab.cs.wwu.edu/canoym/tb2k.git@master
 If you are not in a [virtualenv] you may need to use `pip` with `sudo`.
 
 ## Usage
-One `tb2k` is installed you can run it from the command line. Keep in mind
+Once `tb2k` is installed you can run it from the command line. Keep in mind
 that `tb2k` depends on the following environment variables:
 - `TB2K_TOKEN`: A custom bot Slack token.
 - `TB2K_CHANNEL`: The name of the channel to change topics for.
