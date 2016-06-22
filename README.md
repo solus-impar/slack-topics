@@ -20,10 +20,11 @@ that `tb2k` depends on the following environment variables:
 If you want `tb2k` to run regularly you can add it to your `crontab` with
 ```
 crontab -e
-0 6 * * * tb2k
+0 6  * * * tb2k
+0 14 * * * tb2k
 ```
 
-Every day at 06:00, `tb2k` will update the channel's topic
+Every day at 06:00 & 14:00, `tb2k` will update the channel's topic
 to one of these pages.
 * Random man-page
 * Random programming language
