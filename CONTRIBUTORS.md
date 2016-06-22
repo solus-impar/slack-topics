@@ -1,4 +1,4 @@
 # Contributors to `tb2k`
 
-- [Michael Canoy](https://gitlab.cs.wwu.edu/canoym)
+- [Mike Canoy](http:/mikecanoy.me)
 - [Reilly Tucker Siemens](https://tuckersiemens.com)

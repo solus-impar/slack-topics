@@ -5,7 +5,7 @@ A python3 slack topic bot.
 ## Installation
 
 ```
-pip install git+https://gitlab.cs.wwu.edu/canoym/tb2k.git@master
+pip install git+https://github.com/solus-impar/tb2k.git@master
 ```
 
 If you are not in a [virtualenv] you may need to use `pip` with `sudo`.
@@ -26,11 +26,12 @@ crontab -e
 Every day at 06:00, `tb2k` will update the channel's topic
 to one of thse pages.
 * Monday, Tuesday, & Wednesday: Random man-page
-* Thursday & Friday: Random Wikipedia page
+* Thursday & Friday: Random programming language
 * Saturday & Sunday: Top HN story
 
 Slack API: [api.slack.com](https://api.slack.com/)
 
-You should also check out [wb2k](http://www.github.com/reillysiemens/wb2k/).
+You should also check out [wb2k].
 
+[wb2k]: https://www.github.com/reillysiemens/wb2k/
 [virtualenv]: https://virtualenv.pypa.io/en/stable/
