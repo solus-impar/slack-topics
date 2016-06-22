@@ -56,6 +56,7 @@ def man_page():
     """Randomly select a man page from /usr/share/man/."""
     sec = random.randrange(1, 9)
     man_dir = "/usr/share/man/man{}/".format(sec)
+    man_url = "http://man7.org/linux/man-pages/man{}/".format(sec)
 
     try:
         page = random.choice(os.listdir(man_dir))
@@ -66,14 +67,17 @@ def man_page():
     except PermissionError:
         sys.exit("tb2k: error: {}: permission denied".format(man_dir))
 
-    return "{}({})".format(page.split('.')[0], sec)
+    man_url = "{}{}.{}.html".format(man_url, page.split('.')[0], sec)
+    return "{}({})".format(page.split('.')[0], sec), man_url
 
 
 def wikipedia_programming_language():
     """Randomly select a programming language from Wikipedia."""
     title = 'List of programming languages'
-    page = wikipedia.WikipediaPage(title=title)
-    return random.choice(page.links)
+    page = wikipedia.page(title=title)
+    lang = random.choice(page.links)
+    lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ','_'))
+    return lang, lang_url
 
 
 def top_hacker_news_story():
@@ -86,8 +90,7 @@ def top_hacker_news_story():
     story_url = "{}/item/{}.json".format(hn_api, stories[0])
     story = fetch_json(story_url)
 
-    return story['title']
-
+    return story['title'], story['url']
 
 def main():
     """
@@ -108,13 +111,13 @@ def main():
         day = date.today().weekday()
         # Mon Tue Wed
         if day < 3:
-            topic = man_page()
+            topic, link = man_page()
         # Thur Fri
         elif day < 5:
-            topic = wikipedia_programming_language()
+            topic, link = wikipedia_programming_language()
         # Sat Sun
         else:
-            topic = top_hacker_news_story()
+            topic, link = top_hacker_news_story()
 
         channel_id, channel_type = find_id(channel, bot)
 
@@ -126,6 +129,20 @@ def main():
         if not response['ok']:
             sys.exit("tb2k: error: failed to set topic in #{}".format(channel))
 
+        # Try to post link in channel.
+        try:
+            response = requests.head(link)
+            if response.status_code is 200:
+                response = bot.api_call("chat.postMessage", token=token,
+                        channel=channel_id, text=link, as_user=True)
+                if not response['ok']:
+                    sys.exit("tb2k: error: failed to post link in #{}".format(
+                        channel))
+            else:
+                sys.exit("tb2k: error: {} returned status code {}".format(
+                    link, response.status_code))
+        except requests.ConnectionError:
+            sys.exit("tb2k: error: failed to connect to {}.".format(link))
 
 if __name__ == "__main__":
     main()
