@@ -1,5 +1,5 @@
 import os.path
-from setuptools import setup
+from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -15,6 +15,7 @@ setup(
     author='Mike Canoy',
     author_email='canoym@students.wwu.edu',
     url='https://github.com/solus-impar/tb2k',
+    packages=find_packages(),
     install_requires=requirements,
     license='MIT',
     keywords='topic bot Slack',
@@ -23,7 +24,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
     ],
-    py_modules=['tb2k'],
+    py_modules=['tb2k', 'topics'],
     entry_points={
         'console_scripts': [
             'tb2k=tb2k:main',
