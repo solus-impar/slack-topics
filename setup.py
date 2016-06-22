@@ -10,7 +10,7 @@ requirements = [str(ir.req) for ir in install_requirements]
 
 setup(
     name='tb2k',
-    version='0.2.0',
+    version='0.3.0',
     description='A python3 slack topic bot.',
     author='Mike Canoy',
     author_email='canoym@students.wwu.edu',
