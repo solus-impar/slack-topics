@@ -132,7 +132,7 @@ def main():
         # Try to post link in channel.
         try:
             response = requests.head(link)
-            if response.status_code is 200:
+            if response.ok:
                 response = bot.api_call("chat.postMessage", token=token,
                         channel=channel_id, text=link, as_user=True)
                 if not response['ok']:
