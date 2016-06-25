@@ -2,6 +2,12 @@ import sys
 import requests
 
 
+def topic(func):
+    name = " ".join(w.title() for w in func.__name__.split('_'))
+    func.__topic__ = name
+    return func
+
+
 def fetch_json(url):
     """Fetch data from a URL and attempt to parse it as JSON."""
     try:

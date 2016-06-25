@@ -51,9 +51,12 @@ def main():
     bot = SlackClient(token)
     if bot.rtm_connect():
 
-        # Get all attributes in the topics.functions module that begin with
-        # 'topic', randomly choose one, and then execute it.
-        topic_funcs = [getattr(tf, f) for f in dir(tf) if f.startswith('topic')]
+        # Get all attributes in the topics.functions module that are callable
+        # and possess the custom __topic__ attribute.
+        topic_funcs = []
+        for attr in (getattr(tf, a) for a in dir(tf)):
+            if hasattr(attr, '__call__') and hasattr(attr, '__topic__'):
+                topic_funcs.append(attr)
         topic_func = random.choice(topic_funcs)
         topic, link = topic_func()
 
@@ -71,8 +74,10 @@ def main():
         try:
             response = requests.head(link)
             if response.ok:
+                source = "{}: {}".format(topic_func.__topic__, link)
                 response = bot.api_call("chat.postMessage", token=token,
-                        channel=channel_id, text=link, as_user=True)
+                                        channel=channel_id, text=source,
+                                        as_user=True)
                 if not response['ok']:
                     sys.exit("tb2k: error: failed to post link in #{}".format(
                         channel))

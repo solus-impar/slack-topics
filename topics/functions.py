@@ -4,10 +4,11 @@ import random
 
 import wikipedia
 
-from topics.utils import fetch_json
+from topics.utils import topic, fetch_json
 
 
-def topic_man_page():
+@topic
+def random_man_page():
     """Randomly select a man page from /usr/share/man/."""
     sec = random.randrange(1, 9)
     man_dir = "/usr/share/man/man{}/".format(sec)
@@ -26,16 +27,18 @@ def topic_man_page():
     return "{}({})".format(page.split('.')[0], sec), man_url
 
 
-def topic_wikipedia_programming_language():
+@topic
+def random_wikipedia_programming_language():
     """Randomly select a programming language from Wikipedia."""
     title = 'List of programming languages'
     page = wikipedia.page(title=title)
     lang = random.choice(page.links)
-    lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ','_'))
+    lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ', '_'))
     return lang, lang_url
 
 
-def topic_top_hacker_news_story():
+@topic
+def top_hacker_news_story():
     """Select the current top Hacker News story."""
     hn_api = 'https://hacker-news.firebaseio.com/v0'
 
