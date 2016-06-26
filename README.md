@@ -29,6 +29,7 @@ to one of these pages.
 * Random man-page
 * Random programming language
 * Top HN story
+* Random xkcd comic
 
 ## New Topics
 Don't like the topics that `tb2k` currently supports? Follow the
