@@ -7,8 +7,10 @@ request to this repository adding a function to that module. Topic functions
 
 1. Be decorated with the `@topic` decorator from [`topics.utils`][topic utils].
 2. Take no arguments.
-3. Return a `topic` string and a `link` string as a tuple.
-  - The `link` _can_ be the empty string.
+3. Return a `topic` string, a`link` string, and a `channel` string as a tuple.
+  - The `link` and `channel` _can_ be the empty string.
+  - If `channel` is an empty string, then it deaults to `TB2K_CHANNEL` if set
+  or `general`.
 
 An example topic function might look like this:
 ```python
@@ -16,7 +18,8 @@ An example topic function might look like this:
 def wwu_cs_rules():
     topic = 'WWU CS is the best!'
     link = 'https://wwucs.slack.com'
-    return topic, link
+    channel = 'wwu'
+    return topic, link, channel
 ```
 
 ## Note

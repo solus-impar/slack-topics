@@ -58,7 +58,9 @@ def main():
             if hasattr(attr, '__call__') and hasattr(attr, '__topic__'):
                 topic_funcs.append(attr)
         topic_func = random.choice(topic_funcs)
-        topic, link = topic_func()
+        topic, link, topic_channel = topic_func()
+        if topic_channel:
+            channel = topic_channel
 
         channel_id, channel_type = find_id(channel, bot)
 

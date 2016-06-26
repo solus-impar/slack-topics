@@ -24,11 +24,12 @@ crontab -e
 0 14 * * * tb2k
 ```
 
-Every day at 06:00 & 14:00, `tb2k` will update the channel's topic
+Every day at 06:00 & 14:00, `tb2k` will update a channel's topic
 to one of these pages.
 * Random man-page
 * Random programming language
 * Top HN story
+* Random xkcd comic
 
 ## New Topics
 Don't like the topics that `tb2k` currently supports? Follow the
