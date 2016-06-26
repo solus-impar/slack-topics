@@ -59,7 +59,7 @@ def main():
                 topic_funcs.append(attr)
         topic_func = random.choice(topic_funcs)
         topic, link, topic_channel = topic_func()
-        if topic_channel != '':
+        if topic_channel:
             channel = topic_channel
 
         channel_id, channel_type = find_id(channel, bot)
