@@ -24,7 +24,7 @@ def random_man_page():
         sys.exit("tb2k: error: {}: permission denied".format(man_dir))
 
     man_url = "{}{}.{}.html".format(man_url, page.split('.')[0], sec)
-    return "{}({})".format(page.split('.')[0], sec), man_url
+    return "{}({})".format(page.split('.')[0], sec), man_url, ''
 
 
 @topic
@@ -34,7 +34,7 @@ def random_wikipedia_programming_language():
     page = wikipedia.page(title=title)
     lang = random.choice(page.links)
     lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ', '_'))
-    return lang, lang_url
+    return lang, lang_url, ''
 
 
 @topic
@@ -48,7 +48,7 @@ def top_hacker_news_story():
     story_url = "{}/item/{}.json".format(hn_api, stories[0])
     story = fetch_json(story_url)
 
-    return story['title'], story['url']
+    return story['title'], story['url'], ''
 
 
 @topic
@@ -59,4 +59,4 @@ def random_xkcd():
     num = random.choice(range(1, current['num'] + 1))
     comic = fetch_json("{}/{}/info.0.json".format(xkcd, num))
     url = "{}/{}/".format(xkcd, num)
-    return comic['safe_title'], url
+    return comic['safe_title'], url, 'random'
