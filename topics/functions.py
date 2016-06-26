@@ -49,3 +49,14 @@ def top_hacker_news_story():
     story = fetch_json(story_url)
 
     return story['title'], story['url']
+
+
+@topic
+def random_xkcd():
+    """Select a random xkcd comic"""
+    xkcd = "https://xkcd.com"
+    current = fetch_json("{}/info.0.json".format(xkcd))
+    num = random.choice(range(1, current['num'] + 1))
+    comic = fetch_json("{}/{}/info.0.json".format(xkcd, num))
+    url = "{}/{}/".format(xkcd, num)
+    return comic['safe_title'], url
