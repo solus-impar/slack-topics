@@ -1,13 +1,13 @@
 # Contributing to `tb2k`
 
-`tb2k` keeps plugins in the [`topics.functions`][topic functions] module. If
+`tb2k` keeps plugins in the [`topics.callables`][topic callables] module. If
 you'd like to contribute a topic source of your own you can submit a pull
-request to this repository adding a function to that module. Topic functions
-**MUST** conform to the following specification:
+request to this repository adding a callable object to that module. Topic
+callables **MUST** conform to the following specification:
 
 1. Be decorated with the `@topic` decorator from [`topics.utils`][topic utils].
 2. Take no arguments.
-3. Return a `topic` string, a`link` string, and a `channel` string as a tuple.
+3. Return a `topic` string, a `link` string, and a `channel` string as a tuple.
   - The `link` and `channel` _can_ be the empty string.
   - If `channel` is an empty string, then it deaults to `TB2K_CHANNEL` if set
   or `general`.
@@ -22,6 +22,19 @@ def wwu_cs_rules():
     return topic, link, channel
 ```
 
+An example topic class might look like this:
+```python
+@topic
+class WesternWashingtonComputerScienceRules:
+    def __init__(self):
+        self.topic = 'WWU CS is the best!'
+        self.link = 'https://wwucs.slack.com'
+        self.channel = 'wwu'
+
+    def __call__(self):
+        return self.topic, self.link, self.channel
+```
+
 ## Note
 The `@topic` decorator sets a special attribute, `__topic__`, on the topic
 function to signal that it is a topic, but also for naming purposes. The
@@ -29,8 +42,11 @@ function to signal that it is a topic, but also for naming purposes. The
 the above function would show up in a Slack message like
 > WWU CS Rules: https://wwucs.slack.com
 
-Therefore, it behooves contributors to pick descriptive names for new topic
-functions.
+and the above class would show up like
+> Western Washington University Computer Science Rules: https://wwucs.slack.com
 
-[topic functions]: https://github.com/solus-impar/tb2k/blob/master/topics/functions.py
+Therefore, it behooves contributors to pick descriptive names for new topic
+callables.
+
+[topic callables]: https://github.com/solus-impar/tb2k/blob/master/topics/callables.py
 [topic utils]: https://github.com/solus-impar/tb2k/blob/master/topics/utils.py

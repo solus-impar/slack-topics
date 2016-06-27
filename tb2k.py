@@ -9,7 +9,7 @@ import random
 import requests
 from slackclient import SlackClient
 
-import topics.functions as tf
+import topics.callables as tc
 
 
 def find_id(channel, bot):
@@ -54,7 +54,7 @@ def main():
         # Get all attributes in the topics.functions module that are callable
         # and possess the custom __topic__ attribute.
         topic_callables = []
-        for attr in (getattr(tf, a) for a in dir(tf)):
+        for attr in (getattr(tc, a) for a in dir(tc)):
             if callable(attr) and hasattr(attr, '__topic__'):
                 topic_callables.append(attr)
         topic_callable = random.choice(topic_callables)
