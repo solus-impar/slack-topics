@@ -53,12 +53,12 @@ def main():
 
         # Get all attributes in the topics.functions module that are callable
         # and possess the custom __topic__ attribute.
-        topic_funcs = []
+        topic_callables = []
         for attr in (getattr(tf, a) for a in dir(tf)):
-            if hasattr(attr, '__call__') and hasattr(attr, '__topic__'):
-                topic_funcs.append(attr)
-        topic_func = random.choice(topic_funcs)
-        topic, link, topic_channel = topic_func()
+            if callable(attr) and hasattr(attr, '__topic__'):
+                topic_callables.append(attr)
+        topic_callable = random.choice(topic_callables)
+        topic, link, topic_channel = topic_callable()
         if topic_channel:
             channel = topic_channel
 
@@ -76,7 +76,7 @@ def main():
         try:
             response = requests.head(link)
             if response.ok:
-                source = "{}: {}".format(topic_func.__topic__, link)
+                source = "{}: {}".format(topic_callable.__topic__, link)
                 response = bot.api_call("chat.postMessage", token=token,
                                         channel=channel_id, text=source,
                                         as_user=True)
