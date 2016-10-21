@@ -41,14 +41,18 @@ def random_wikipedia_programming_language():
 def top_hacker_news_story():
     """Select the current top Hacker News story."""
     hn_api = 'https://hacker-news.firebaseio.com/v0'
+    hn_url = 'https://news.ycombinator.com'
 
     stories_url = "{}/topstories.json".format(hn_api)
     stories = fetch_json(stories_url)
 
     story_url = "{}/item/{}.json".format(hn_api, stories[0])
+    discussion_url = "{}/item?id={}".format(hn_url, stories[0])
     story = fetch_json(story_url)
 
-    return story['title'], story['url'], ''
+    links = story['url'] + '\nDiscussion: ' + discussion_url
+
+    return story['title'], links, ''
 
 
 @topic
