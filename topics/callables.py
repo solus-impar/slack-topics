@@ -50,7 +50,7 @@ def top_hacker_news_story():
     discussion_url = "{}/item?id={}".format(hn_url, stories[0])
     story = fetch_json(story_url)
 
-    links = story['url'] + '\nDiscussion: ' + discussion_url
+    links = [story['url'], discussion_url]
 
     return story['title'], links, ''
 

@@ -74,6 +74,10 @@ def main():
 
         # Try to post link in channel.
         try:
+            if isinstance(link, list):
+                topic_callable.__topic__ = "{}: {}".format(
+                    topic_callable.__topic__, link[1])
+                link = link[0]
             response = requests.head(link)
             if response.ok:
                 source = "{}: {}".format(topic_callable.__topic__, link)
