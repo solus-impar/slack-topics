@@ -5,10 +5,10 @@ A python3 slack topic bot.
 ## Installation
 
 ```
-pip install git+https://github.com/solus-impar/tb2k.git@master
+pip3 install git+https://github.com/solus-impar/tb2k.git@master
 ```
 
-If you are not in a [virtualenv] you may need to use `pip` with `sudo`.
+If you are not in a [virtualenv] you may need to use `pip3` with `sudo`.
 
 ## Usage
 Once `tb2k` is installed you can run it from the command line. Keep in mind
@@ -24,8 +24,7 @@ crontab -e
 0 14 * * * tb2k
 ```
 
-Every day at 06:00 & 14:00, `tb2k` will update a channel's topic
-to one of these pages.
+`tb2k` will update a channel's topic to one of these pages.
 * Random man-page
 * Random programming language
 * Top HN story

@@ -7,8 +7,9 @@ callables **MUST** conform to the following specification:
 
 1. Be decorated with the `@topic` decorator from [`topics.utils`][topic utils].
 2. Take no arguments.
-3. Return a `topic` string, a `link` string, and a `channel` string as a tuple.
-  - The `link` and `channel` _can_ be the empty string.
+3. Return a `topic` string, a `link` string, a `discussion` string, 
+and a `channel` string as a tuple.
+  - `link`, `discussion`,  and `channel` _can_ be the empty string.
   - If `channel` is an empty string, then it deaults to `TB2K_CHANNEL` if set
   or `general`.
 
@@ -19,7 +20,7 @@ def wwu_cs_rules():
     topic = 'WWU CS is the best!'
     link = 'https://wwucs.slack.com'
     channel = 'wwu'
-    return topic, link, channel
+    return topic, link, '', channel
 ```
 
 An example topic class might look like this:
@@ -29,10 +30,11 @@ class WesternWashingtonComputerScienceRules:
     def __init__(self):
         self.topic = 'WWU CS is the best!'
         self.link = 'https://wwucs.slack.com'
+        self.discussion = ''
         self.channel = 'wwu'
 
     def __call__(self):
-        return self.topic, self.link, self.channel
+        return self.topic, self.link, self.discussion, self.channel
 ```
 
 ## Note
