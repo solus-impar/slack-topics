@@ -13,8 +13,8 @@ If you are not in a [virtualenv] you may need to use `pip3` with `sudo`.
 ## Usage
 Once `tb2k` is installed you can run it from the command line. Keep in mind
 that `tb2k` depends on the following environment variables:
-- `TB2K_TOKEN`: A custom bot Slack token.
-- `TB2K_CHANNEL`: The name of the channel to change topics for.
+* `TB2K_TOKEN`: A custom bot Slack token.
+* `TB2K_CHANNEL`: The name of the channel to change topics for.
 
 ## Schedule
 If you want `tb2k` to run regularly you can add it to your `crontab` with

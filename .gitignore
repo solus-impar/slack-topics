@@ -7,6 +7,10 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+bin/
+include/
+pip-selfcheck.json
+share/
 .Python
 env/
 build/

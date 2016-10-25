@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans">
+    <link rel="stylesheet" href="https://solus-impar.github.io/style.css">
+    <title>tb2k</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><code>tb2k</code></h1>
+        A python3 slack topic bot.<br/>
+        <a href="https://github.com/solus-impar/tb2k">
+          github.com/solus-impar/tb2k</a>
+      </header>
+      <section>
+        <h3>Installation</h3>
+        <pre><code>pip3 install git+https://github.com/solus-impar/tb2k.git@master
+        </code></pre>
+        If you are not in a <a href="https://virtualenv.pypa.io/en/stable/">
+        virtualenv</a> you may need to use <code>pip3</code> with <code>sudo.
+        </code><br/>
+        <h3>Usage</h3>
+        Once <code>tb2k</code> is installed you can run it from the command
+        line. Keep in mind that <code>tb2k</code> depends on the following
+        environment variables:<br/>
+        <ul>
+        <li>
+        <code>TB2K_TOKEN</code>: A custom bot Slack token.</li>
+        <li>
+        <code>TB2K_CHANNEL</code>: The name of the channel to change topics
+        for.</li>
+        </ul>
+        <h3>Schedule</h3>
+        If you want <code>tb2k</code> to run regularly you can add it to your 
+        <code>crontab</code> with<br/>
+        <pre><code>cronetab -e
+        0 6  * * * tb2k 
+        0 14 * * * tb2k
+        </code></pre>
+        <code>tb2k</code> will update a channel's topic to one of these pages.
+        <br/>
+        <ul>
+        <li>Random man-page</li>
+        <li>Random programming language</li>
+        <li>Top HN story</li>
+        <li>Random xkcd comic</li>
+        </ul>
+        <h3>New Topics</h3>
+        Don't like the topics that <code>tb2k</code> currently supports? Follow
+        the <a href=
+        "https://github.com/solus-impar/tb2k/blob/master/CONTRIBUTING.md">
+        contribution guidelines</a> to add one!
+        <h3>Resources</h3>
+        Slack API: <a href="https://api.slack.com/">api.slack.com</a><br/>
+        You should also check out <code>
+        <a href="https://www.github.com/reillysiemens/wb2k">wb2k</a></code>.
+      </section>
+      <footer>
+        This project is maintained by <a href="https://github.com/solus-impar">
+        solus-impar</a>
+        <small>Theme modified from
+          <a href="https://github.com/orderedlist/minimal">minimal</a><br/>
+          and inspired by 
+          <a href="http://ethanschoonover.com/solarized">solarized</a></small>
+      </footer>
+    </div>
+  </body>
+</html>
