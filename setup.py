@@ -13,7 +13,7 @@ setup(
     version='0.6.0',
     description='A python3 slack topic bot.',
     author='Mike Canoy',
-    author_email='canoym@students.wwu.edu',
+    author_email='canoym@wwu.edu',
     url='https://github.com/solus-impar/tb2k',
     packages=find_packages(),
     install_requires=requirements,
