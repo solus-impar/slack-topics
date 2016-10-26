@@ -58,7 +58,7 @@ def main():
             if callable(attr) and hasattr(attr, '__topic__'):
                 topic_callables.append(attr)
         topic_callable = random.choice(topic_callables)
-        topic, link, discussion, topic_channel = topic_callable()
+        topic, message, topic_channel = topic_callable()
         if topic_channel:
             channel = topic_channel
 
@@ -74,20 +74,13 @@ def main():
 
         # Try to post link in channel.
         try:
-            response = requests.head(link)
-            if response.ok:
-                source = "{}: {}".format(topic_callable.__topic__, link)
-                if discussion:
-                    source = "{}\nDiscussion: {}".format(source, discussion)
-                response = bot.api_call("chat.postMessage", token=token,
-                                        channel=channel_id, text=source,
-                                        as_user=True)
-                if not response['ok']:
-                    sys.exit("tb2k: error: failed to post link in #{}".format(
-                        channel))
-            else:
-                sys.exit("tb2k: error: {} returned status code {}".format(
-                    link, response.status_code))
+            source = "{}: {}".format(topic_callable.__topic__, message)
+            response = bot.api_call("chat.postMessage", token=token,
+                                    channel=channel_id, text=source,
+                                    as_user=True)
+            if not response['ok']:
+                sys.exit("tb2k: error: failed to post link in #{}".format(
+                    channel))
         except requests.ConnectionError:
             sys.exit("tb2k: error: failed to connect to {}.".format(link))
 

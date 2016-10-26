@@ -1,30 +1,26 @@
-import os
 import sys
 import random
-
 import wikipedia
-
 from topics.utils import topic, fetch_json
+import requests
+from bs4 import BeautifulSoup
 
 
 @topic
 def random_man_page():
-    """Randomly select a man page from /usr/share/man/."""
+    """Randomly select a man page from Ubuntu manuals."""
     sec = random.randrange(1, 9)
-    man_dir = "/usr/share/man/man{}/".format(sec)
-    man_url = "http://man7.org/linux/man-pages/man{}/".format(sec)
+    man_url = "http://manpages.ubuntu.com/manpages/xenial/man{}/".format(sec)
+    man_html = requests.get(man_url)
+    man_soup = BeautifulSoup(man_html.text, 'html.parser')
+    
+    man_page = random.choice(man_soup.find_all('a'))['href']
+    link = "{}{}".format(man_url, man_page)
 
-    try:
-        page = random.choice(os.listdir(man_dir))
-    except IndexError:
-        sys.exit("tb2k: error: no man pages in section {}".format(sec))
-    except FileNotFoundError:
-        sys.exit("tb2k: error: {} does not exist".format(man_dir))
-    except PermissionError:
-        sys.exit("tb2k: error: {}: permission denied".format(man_dir))
+    for relation in [['.', '('], ['.', ')'], ['html', '']]:
+        man_page = man_page.replace(relation[0], relation[1], 1)
 
-    man_url = "{}{}.{}.html".format(man_url, page.split('.')[0], sec)
-    return "{}({})".format(page.split('.')[0], sec), man_url, '', ''
+    return man_page, link, ''
 
 
 @topic
@@ -34,7 +30,7 @@ def random_wikipedia_programming_language():
     page = wikipedia.page(title=title)
     lang = random.choice(page.links)
     lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ', '_'))
-    return lang, lang_url, '', ''
+    return lang, lang_url, ''
 
 
 @topic
@@ -49,8 +45,9 @@ def top_hacker_news_story():
     story_url = "{}/item/{}.json".format(hn_api, stories[0])
     story = fetch_json(story_url)
     discussion = "{}/item?id={}".format(hn_url, stories[0])
+    message = "{}\nDiscussion: {}".format(story['url'], discussion)
 
-    return story['title'], story['url'], discussion, ''
+    return story['title'], message, ''
 
 
 @topic
@@ -61,4 +58,4 @@ def random_xkcd():
     num = random.choice(range(1, current['num'] + 1))
     comic = fetch_json("{}/{}/info.0.json".format(xkcd, num))
     url = "{}/{}/".format(xkcd, num)
-    return comic['safe_title'], url, '', 'random'
+    return comic['safe_title'], url, 'random'
