@@ -1,4 +1,4 @@
-# Contributors to `tb2k`
+# Contributors to `slack-topics`
 
 - [Mike Canoy](http:/mikecanoy.me)
 - [Reilly Tucker Siemens](https://tuckersiemens.com)

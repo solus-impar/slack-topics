@@ -1,14 +1,9 @@
-###
-# tb2k: Slack Topic Bot
-###
-
+"""slack-topics: A python3 slack topic bot."""
 import os
 import sys
 import random
-
 import requests
 from slackclient import SlackClient
-
 import topics.callables as tc
 
 
@@ -18,7 +13,7 @@ def find_id(channel, bot):
     groups_list = bot.api_call("groups.list").get('groups')
 
     if not channels_list and not groups_list:
-        sys.exit('tb2k: error: couldn\'t enumerage channels/groups')
+        sys.exit('slack-topics: error: couldn\'t enumerage channels/groups')
 
     # There is probably a better way to do this.
     channel_ids = [c['id'] for c in channels_list if c['name'] == channel]
@@ -31,7 +26,7 @@ def find_id(channel, bot):
     if group_ids:
         return (group_ids[0], 'group')
     else:
-        sys.exit("tb2k: error: couldn't find #{}".format(channel))
+        sys.exit("slack-topics: error: couldn't find #{}".format(channel))
 
 
 def main():
@@ -46,7 +41,7 @@ def main():
     channel = os.environ.get('TB2K_CHANNEL') or 'general'
 
     if not token:
-        sys.exit('tb2k: error: TB2K_TOKEN environment variable is not set')
+        sys.exit('slack-topics: error: TB2K_TOKEN environment variable is not set')
 
     bot = SlackClient(token)
     if bot.rtm_connect():
@@ -70,7 +65,7 @@ def main():
 
         # The bot MUST be in the channel already. Bots cannot join channels.
         if not response['ok']:
-            sys.exit("tb2k: error: failed to set topic in #{}".format(channel))
+            sys.exit("slack-topics: error: failed to set topic in #{}".format(channel))
 
         # Try to post link in channel.
         try:
@@ -79,10 +74,10 @@ def main():
                                     channel=channel_id, text=source,
                                     as_user=True)
             if not response['ok']:
-                sys.exit("tb2k: error: failed to post link in #{}".format(
+                sys.exit("slack-topics: error: failed to post link in #{}".format(
                     channel))
         except requests.ConnectionError:
-            sys.exit("tb2k: error: failed to connect to {}.".format(link))
+            sys.exit("slack-topics: error: failed to connect to {}.".format(link))
 
 if __name__ == "__main__":
     main()

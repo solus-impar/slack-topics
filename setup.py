@@ -9,25 +9,25 @@ install_requirements = parse_requirements(requirements_path, session=False)
 requirements = [str(ir.req) for ir in install_requirements]
 
 setup(
-    name='tb2k',
+    name='slack-topics',
     version='0.6.0',
     description='A python3 slack topic bot.',
     author='Mike Canoy',
     author_email='canoym@wwu.edu',
-    url='https://github.com/solus-impar/tb2k',
+    url='https://github.com/solus-impar/slack-topics',
     packages=find_packages(),
     install_requires=requirements,
     license='MIT',
-    keywords='topic bot Slack',
+    keywords='topic bot slack',
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
     ],
-    py_modules=['tb2k', 'topics'],
+    py_modules=['slack-topics', 'topics'],
     entry_points={
         'console_scripts': [
-            'tb2k=tb2k:main',
+            'slack-topics=slack-topics:main',
         ]
     },
 )

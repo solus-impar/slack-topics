@@ -1,6 +1,6 @@
-# Contributing to `tb2k`
+# Contributing to `slack-topics`
 
-`tb2k` keeps plugins in the [`topics.callables`][topic callables] module. If
+`slack-topics` keeps plugins in the [`topics.callables`][topic callables] module. If
 you'd like to contribute a topic source of your own you can submit a pull
 request to this repository adding a callable object to that module. Topic
 callables **MUST** conform to the following specification:
@@ -48,5 +48,5 @@ and the above class would show up like
 Therefore, it behooves contributors to pick descriptive names for new topic
 callables.
 
-[topic callables]: https://github.com/solus-impar/tb2k/blob/master/topics/callables.py
-[topic utils]: https://github.com/solus-impar/tb2k/blob/master/topics/utils.py
+[topic callables]: https://github.com/solus-impar/slack-topics/blob/master/topics/callables.py
+[topic utils]: https://github.com/solus-impar/slack-topics/blob/master/topics/utils.py

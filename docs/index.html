@@ -5,26 +5,26 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans">
     <link rel="stylesheet" href="https://solus-impar.github.io/style.css">
-    <title>tb2k</title>
+    <title>slack-topics</title>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1><code>tb2k</code></h1>
+        <h1><code>slack-topics</code></h1>
         A python3 slack topic bot.<br/>
-        <a href="https://github.com/solus-impar/tb2k">
-          github.com/solus-impar/tb2k</a>
+        <a href="https://github.com/solus-impar/slack-topics">
+          github.com/solus-impar/slack-topics</a>
       </header>
       <section>
         <h3>Installation</h3>
-        <pre><code>pip3 install git+https://github.com/solus-impar/tb2k.git@master
+        <pre><code>pip3 install git+https://github.com/solus-impar/slack-topics.git@master
         </code></pre>
         If you are not in a <a href="https://virtualenv.pypa.io/en/stable/">
         virtualenv</a> you may need to use <code>pip3</code> with <code>sudo.
         </code><br/>
         <h3>Usage</h3>
-        Once <code>tb2k</code> is installed you can run it from the command
-        line. Keep in mind that <code>tb2k</code> depends on the following
+        Once <code>slack-topics</code> is installed you can run it from the command
+        line. Keep in mind that <code>slack-topics</code> depends on the following
         environment variables:<br/>
         <ul>
         <li>
@@ -34,13 +34,13 @@
         for.</li>
         </ul>
         <h3>Schedule</h3>
-        If you want <code>tb2k</code> to run regularly you can add it to your 
+        If you want <code>slack-topics</code> to run regularly you can add it to your 
         <code>crontab</code> with<br/>
         <pre><code>cronetab -e
-        0 6  * * * tb2k 
-        0 14 * * * tb2k
+        0 6  * * * slack-topics 
+        0 14 * * * slack-topics
         </code></pre>
-        <code>tb2k</code> will update a channel's topic to one of these pages.
+        <code>slack-topics</code> will update a channel's topic to one of these pages.
         <br/>
         <ul>
         <li>Random man-page</li>
@@ -49,9 +49,9 @@
         <li>Random xkcd comic</li>
         </ul>
         <h3>New Topics</h3>
-        Don't like the topics that <code>tb2k</code> currently supports? Follow
+        Don't like the topics that <code>slack-topics</code> currently supports? Follow
         the <a href=
-        "https://github.com/solus-impar/tb2k/blob/master/CONTRIBUTING.md">
+        "https://github.com/solus-impar/slack-topics/blob/master/CONTRIBUTING.md">
         contribution guidelines</a> to add one!
         <h3>Resources</h3>
         Slack API: <a href="https://api.slack.com/">api.slack.com</a><br/>
