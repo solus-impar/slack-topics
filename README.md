@@ -26,7 +26,7 @@ If you want `slack-topics` to run regularly you can add it to your `crontab` or
 * Random programming language
 * Top HN story
 * Random xkcd comic
-* Random challenge from smdchallenge.com
+* Random challenge from [cmdchallenge.com]
 
 ## New Topics
 Don't like the topics that `slack-topics` currently supports? Follow the
@@ -37,6 +37,7 @@ Slack API: [api.slack.com](https://api.slack.com/)
 
 You should also check out [wb2k].
 
+[cmdchallenge.com]: https://cmdchallenge.com/
 [wb2k]: https://www.github.com/reillysiemens/wb2k/
 [virtualenv]: https://virtualenv.pypa.io/en/stable/
 [contribution guidelines]: https://github.com/solus-impar/slack-topics/blob/master/CONTRIBUTING.md
