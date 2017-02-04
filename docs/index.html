@@ -20,26 +20,22 @@
         <pre><code>pip3 install git+https://github.com/solus-impar/slack-topics.git@master
         </code></pre>
         If you are not in a <a href="https://virtualenv.pypa.io/en/stable/">
-        virtualenv</a> you may need to use <code>pip3</code> with <code>sudo.
-        </code><br/>
+        virtualenv</a> you may need to use <code>pip3</code> with <code>sudo
+        </code> or <code>--user</code>.<br/>
         <h3>Usage</h3>
         Once <code>slack-topics</code> is installed you can run it from the command
         line. Keep in mind that <code>slack-topics</code> depends on the following
         environment variables:<br/>
         <ul>
         <li>
-        <code>TB2K_TOKEN</code>: A custom bot Slack token.</li>
+        <code>SLACK_TOPICS_TOKEN</code>: A custom bot Slack token.</li>
         <li>
-        <code>TB2K_CHANNEL</code>: The name of the channel to change topics
+        <code>SLACK_TOPICS_CHANNEL</code>: The name of the channel to change topics
         for.</li>
         </ul>
         <h3>Schedule</h3>
         If you want <code>slack-topics</code> to run regularly you can add it to your 
-        <code>crontab</code> with<br/>
-        <pre><code>cronetab -e
-        0 6  * * * slack-topics 
-        0 14 * * * slack-topics
-        </code></pre>
+        <code>crontab</code> or <code>launchd</code>
         <code>slack-topics</code> will update a channel's topic to one of these pages.
         <br/>
         <ul>
@@ -47,6 +43,7 @@
         <li>Random programming language</li>
         <li>Top HN story</li>
         <li>Random xkcd comic</li>
+        <li>Random challenge from <a href="https://cmdchallenge.com">cmdchallenge.com</a></li>
         </ul>
         <h3>New Topics</h3>
         Don't like the topics that <code>slack-topics</code> currently supports? Follow
