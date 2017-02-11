@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contributing to slack-topics &mdash; slack-topics 0.7.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="slack-topics 0.7.0 documentation" href="index.html"/>
+        <link rel="next" title="Contributors to slack-topics" href="CONTRIBUTORS.html"/>
+        <link rel="prev" title="slack-topics" href="README.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> slack-topics
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">slack-topics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing to slack-topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#note">Note</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTORS.html">Contributors to slack-topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slack_topics.html">slack_topics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topics.html">topics package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">slack-topics</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Contributing to slack-topics</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/CONTRIBUTING.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="contributing-to-slack-topics">
+<span id="contributing-to-slack-topics"></span><h1>Contributing to slack-topics<a class="headerlink" href="#contributing-to-slack-topics" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">slack-topics</span></code> keeps plugins in the <a class="reference external" href="https://github.com/solus-impar/slack-topics/blob/master/topics/callables.py"><code class="docutils literal"><span class="pre">topics.callables</span></code></a> module. If
+you&#8217;d like to contribute a topic source of your own you can submit a pull
+request to this repository adding a callable object to that module. Topic
+callables <strong>MUST</strong> conform to the following specification:</p>
+<ol class="simple">
+<li>Be decorated with the <code class="docutils literal"><span class="pre">&#64;topic</span></code> decorator from <a class="reference external" href="https://github.com/solus-impar/slack-topics/blob/master/topics/utils.py"><code class="docutils literal"><span class="pre">topics.utils</span></code></a>.</li>
+<li>Take no arguments.</li>
+<li>Return a <code class="docutils literal"><span class="pre">topic</span></code> string, a <code class="docutils literal"><span class="pre">message</span></code> string, and a <code class="docutils literal"><span class="pre">channel</span></code> string as a tuple.</li>
+</ol>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">message</span></code> and <code class="docutils literal"><span class="pre">channel</span></code> <em>can</em> be the empty string.</li>
+<li>If <code class="docutils literal"><span class="pre">channel</span></code> is an empty string, then it deaults to <code class="docutils literal"><span class="pre">SLACK_TOPICS_CHANNEL</span></code> if set
+or <code class="docutils literal"><span class="pre">general</span></code>.</li>
+</ul>
+<p>An example topic function might look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@topic</span>
+<span class="k">def</span> <span class="nf">wwu_cs_rules</span><span class="p">():</span>
+    <span class="n">topic</span> <span class="o">=</span> <span class="s1">&#39;WWU CS is the best!&#39;</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;https://wwucs.slack.com&#39;</span>
+    <span class="n">channel</span> <span class="o">=</span> <span class="s1">&#39;wwu&#39;</span>
+    <span class="k">return</span> <span class="n">topic</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">channel</span>
+</pre></div>
+</div>
+<p>An example topic class might look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@topic</span>
+<span class="k">class</span> <span class="nc">WesternWashingtonComputerScienceRules</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="s1">&#39;WWU CS is the best!&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;https://wwucs.slack.com&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="s1">&#39;wwu&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span>
+</pre></div>
+</div>
+<div class="section" id="note">
+<span id="note"></span><h2>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">&#64;topic</span></code> decorator sets a special attribute, <code class="docutils literal"><span class="pre">__topic__</span></code>, on the topic
+function to signal that it is a topic, but also for naming purposes. The
+<code class="docutils literal"><span class="pre">__topic__</span></code> attribute is used to provide source for links. For example,
+the above function would show up in a Slack message like</p>
+<blockquote>
+<div>WWU CS Rules: https://wwucs.slack.com</div></blockquote>
+<p>and the above class would show up like</p>
+<blockquote>
+<div>Western Washington University Computer Science Rules: https://wwucs.slack.com</div></blockquote>
+<p>Therefore, it behooves contributors to pick descriptive names for new topic
+callables.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CONTRIBUTORS.html" class="btn btn-neutral float-right" title="Contributors to slack-topics" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="README.html" class="btn btn-neutral" title="slack-topics" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Mike Canoy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.7.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
