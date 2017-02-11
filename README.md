@@ -1,4 +1,5 @@
 # slack-topics
+[![Build Status][badge-build]](https://travis-ci.org/solus-impar/slack-topics)
 
 A python3 slack topic bot.
 
@@ -37,6 +38,7 @@ Slack API: [api.slack.com](https://api.slack.com/)
 
 You should also check out [wb2k].
 
+[badge-build]: https://travis-ci.org/solus-impar/slack-topics.svg?branch=master
 [cmdchallenge.com]: https://cmdchallenge.com/
 [wb2k]: https://www.github.com/reillysiemens/wb2k/
 [virtualenv]: https://virtualenv.pypa.io/en/stable/

@@ -1,0 +1,7 @@
+# https://travis-ci.org/solus-impar/slack-topics
+language: python
+python:
+    - "3.5"
+    - "3.6"
+install: "pip3 install -r requirements.txt"
+script: python3 -m pytest
