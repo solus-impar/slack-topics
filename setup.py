@@ -10,7 +10,7 @@ requirements = [str(ir.req) for ir in install_requirements]
 
 setup(
     name='slack-topics',
-    version='0.7.0',
+    version='0.7.1',
     description='A python3 slack topic bot.',
     author='Mike Canoy',
     author_email='canoym@wwu.edu',
@@ -27,7 +27,7 @@ setup(
     py_modules=['slack-topics', 'topics'],
     entry_points={
         'console_scripts': [
-            'slack-topics=slack-topics:main',
+            'slack-topics=slack_topics:main',
         ]
     },
 )
