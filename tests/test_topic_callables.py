@@ -1,4 +1,4 @@
-import topics.callables as tc
+import slack_topics.topics.callables as tc
 
 
 def test_topic_callables():

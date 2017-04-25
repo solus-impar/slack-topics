@@ -15,7 +15,7 @@ Raises:
 """
 import random
 import wikipedia
-from topics.utils import topic, fetch_json
+from slack_topics.topics.utils import topic, fetch_json
 import requests
 from bs4 import BeautifulSoup
 

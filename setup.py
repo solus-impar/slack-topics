@@ -27,7 +27,7 @@ setup(
     py_modules=['slack-topics', 'topics'],
     entry_points={
         'console_scripts': [
-            'slack-topics=slack_topics:main',
+            'slack-topics=slack_topics.slack_topics:main',
         ]
     },
 )
