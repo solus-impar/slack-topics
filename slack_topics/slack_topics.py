@@ -4,7 +4,7 @@ import sys
 import random
 import requests
 from slackclient import SlackClient
-import topics.callables as tc
+import slack_topics.topics.callables as tc
 
 
 def find_id(channel, bot):
