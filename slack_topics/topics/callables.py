@@ -87,3 +87,17 @@ def random_cmd_challenge():
     link = cmd_url.format("#{}".format(cmd_name))
 
     return cmd_name, link, ''
+
+
+@topic
+def trending_github_repositories():
+    """Select the current trending repo this week on GitHub."""
+    hub_url = 'https://github.com/trending?since=weekly'
+    hub_html = requests.get(hub_url)
+    hub_soup = BeautifulSoup(hub_html.text, 'html.parser')
+
+    repo_list = hub_soup.find('ol', class_='repo-list')
+    repo = repo_list.find('a')['href']
+    link = "https://github.com{}".format(repo)
+
+    return repo, link, ''
