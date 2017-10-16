@@ -14,6 +14,7 @@ Raises:
     Not required, but use when needed.
 """
 import random
+import re
 from slack_topics.topics.utils import fetch_json, topic, url_to_soup
 
 
@@ -98,3 +99,33 @@ def trending_on_github():
     link = "https://github.com{}".format(repo)
 
     return repo[1:], link, ''
+
+
+@topic
+def random_hackerrank_challenge():
+    """Randomly select a challenge from hackerrank.com."""
+    rank_url = 'https://hackerrank.com/dashboard'
+    rank_soup = url_to_soup(rank_url)
+    domains = []
+    for link in rank_soup.find_all('a', \
+        href=re.compile(r'/domains/(?!tutorials)')):
+        domains.append(link['href'])
+
+    domain_url = "https://hackerrank.com{}".format(random.choice(domains))
+    domain_soup = url_to_soup(domain_url)
+
+    subdomain_list = domain_soup.find('ul', id='challengeAccordion')
+    subdomains = [link['href'] for link in subdomain_list.find_all('a')]
+
+    challenges_url = "https://hackerrank.com{}".format( \
+        random.choice(subdomains))
+    challenges_soup = url_to_soup(challenges_url)
+    challenges = []
+    for link in challenges_soup.find_all('a', href=re.compile(r'/challenges/' \
+        '(?!.*forum$|.*leaderboard$|.*submissions$)')):
+        challenges.append(link)
+
+    challenge = random.choice(challenges)
+    challenge_url = "https://hackerrank.com{}".format(challenge['href'])
+
+    return challenge.text, challenge_url, ''
