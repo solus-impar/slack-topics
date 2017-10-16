@@ -14,7 +14,6 @@ Raises:
     Not required, but use when needed.
 """
 import random
-import wikipedia
 from slack_topics.topics.utils import fetch_json, topic, url_to_soup
 
 
@@ -33,14 +32,19 @@ def random_man_page():
 
 
 @topic
-def random_wikipedia_programming_language():
+def random_programming_language():
     """Randomly select a programming language from Wikipedia."""
-    title = 'List of programming languages'
-    page = wikipedia.page(title=title)
-    lang = random.choice(page.links)
-    lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ', '_'))
+    wiki_url = 'https://en.wikipedia.org/wiki/List_of_programming_languages'
+    wiki_soup = url_to_soup(wiki_url)
+    lang_list = wiki_soup.find_all('div', class_='div-col columns ' \
+        'column-count column-count-2')
+    lang_sublist = []
+    for link in random.choice(lang_list).find_all('a', href=True):
+        lang_sublist.append(link)
+    lang = random.choice(lang_sublist)
+    lang_url = "https://en.wikipedia.org{}".format(lang['href'])
 
-    return lang, lang_url, ''
+    return lang['title'], lang_url, ''
 
 
 @topic
@@ -79,7 +83,7 @@ def random_cmd_challenge():
     cmd_json = fetch_json(cmd_url.format('challenges/challenges.json'))
     cmd_num = random.randrange(0, 29)
     cmd_name = cmd_json[cmd_num]['slug']
-    link = cmd_url.format("#{}".format(cmd_name))
+    link = cmd_url.format("#/{}".format(cmd_name))
 
     return cmd_name, link, ''
 
@@ -93,4 +97,4 @@ def trending_on_github():
     repo = repo_list.find('a')['href']
     link = "https://github.com{}".format(repo)
 
-    return repo, link, ''
+    return repo[1:], link, ''

@@ -3,4 +3,3 @@ requests ~= 2.10.0
 six ~= 1.10.0
 slackclient ~= 1.0.0
 websocket-client ~= 0.37.0
-wikipedia ~= 1.4.0
