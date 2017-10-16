@@ -15,9 +15,7 @@ Raises:
 """
 import random
 import wikipedia
-from slack_topics.topics.utils import topic, fetch_json
-import requests
-from bs4 import BeautifulSoup
+from slack_topics.topics.utils import fetch_json, topic, url_to_soup
 
 
 @topic
@@ -25,12 +23,9 @@ def random_man_page():
     """Randomly select a man page from Ubuntu manuals."""
     sec = random.randrange(1, 9)
     man_url = "http://manpages.ubuntu.com/manpages/xenial/man{}/".format(sec)
-    man_html = requests.get(man_url)
-    man_soup = BeautifulSoup(man_html.text, 'html.parser')
-
+    man_soup = url_to_soup(man_url)
     man_page = random.choice(man_soup.find_all('a'))['href']
     link = "{}{}".format(man_url, man_page)
-
     for relation in [['.', '('], ['.', ')'], ['html', '']]:
         man_page = man_page.replace(relation[0], relation[1], 1)
 
@@ -90,12 +85,10 @@ def random_cmd_challenge():
 
 
 @topic
-def trending_github_repositories():
-    """Select the current trending repo this week on GitHub."""
+def trending_on_github():
+    """Select the current trending repository this week on GitHub."""
     hub_url = 'https://github.com/trending?since=weekly'
-    hub_html = requests.get(hub_url)
-    hub_soup = BeautifulSoup(hub_html.text, 'html.parser')
-
+    hub_soup = url_to_soup(hub_url)
     repo_list = hub_soup.find('ol', class_='repo-list')
     repo = repo_list.find('a')['href']
     link = "https://github.com{}".format(repo)
