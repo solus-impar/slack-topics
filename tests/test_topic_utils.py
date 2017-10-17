@@ -52,7 +52,7 @@ def test_fetch_json(monkeypatch):
 
 def test_fetch_json_exits_on_connection_error(monkeypatch):
     """Test fetch_json exists on requests.ConnectionError."""
-    expected = 'tb2k: error: cannot connect to https://not.real/json'
+    expected = 'slack-topics: Cannot connect to https://not.real/json'
 
     def _raise_connection_error(url):
         raise requests.ConnectionError
@@ -67,7 +67,7 @@ def test_fetch_json_exits_on_connection_error(monkeypatch):
 
 def test_fetch_json_exits_with_invalid_JSON(monkeypatch):
     """Test fetch_json exists if a response contains invalid JSON."""
-    expected = 'tb2k: error: invalid JSON at https://not.real/json'
+    expected = 'slack-topics: Invalid JSON at https://not.real/json'
 
     def _raise_value_error():
         raise ValueError
@@ -83,7 +83,7 @@ def test_fetch_json_exits_with_invalid_JSON(monkeypatch):
 
 def test_fetch_json_exits_if_HTTP_status_not_200(monkeypatch):
     """Test fetch_json exits if a response status code is not 200."""
-    expected = 'tb2k: error: 404 fetching https://not.real/json'
+    expected = 'slack-topics: 404 fetching https://not.real/json'
 
     response = MagicMock(status_code=404)
     _requests = MagicMock(get=lambda url: response)
