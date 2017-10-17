@@ -1,7 +1,7 @@
 # slack-topics
 [![Build Status][badge-build]](https://travis-ci.org/solus-impar/slack-topics)
 
-A python3 slack topic bot.
+A python slack bot for topics.
 
 ## Installation
 
@@ -28,6 +28,8 @@ If you want `slack-topics` to run regularly you can add it to your `crontab` or
 * Top HN story
 * Random xkcd comic
 * Random challenge from [cmdchallenge.com]
+* Top trending repository on Github
+* Random HackerRank challenge
 
 ## New Topics
 Don't like the topics that `slack-topics` currently supports? Follow the

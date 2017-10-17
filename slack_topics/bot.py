@@ -1,4 +1,4 @@
-"""slack-topics: A python3 slack topic bot."""
+"""slack-topics: A python slack bot for topics."""
 import os
 import sys
 import random
@@ -49,12 +49,7 @@ def find_id(channel, bot):
 
 
 def main():
-    """Set a channel topic to one of:
-        - A random man-page
-        - A random programming language from Wikipedia
-        - The current top Hacker News story
-        - Random xkcd comic
-        - Random challenge from cmdchallenge.com
+    """Set a channel topic to one from topics.callables
 
     Args:
         None
@@ -123,7 +118,3 @@ def main():
             sys.exit(error.format(
                 "failed to connect to {}.".format(message)
             ))
-
-
-if __name__ == "__main__":
-    main()
