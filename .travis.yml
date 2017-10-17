@@ -8,4 +8,3 @@ install:
     - pip3 install -e .
 script:
     - python3 -m pytest
-    - slack-topics
