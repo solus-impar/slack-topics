@@ -10,10 +10,10 @@ requirements = [str(ir.req) for ir in install_requirements]
 
 setup(
     name='slack-topics',
-    version='0.7.1',
-    description='A python3 slack topic bot.',
+    version='0.7.2',
+    description='A python slack bot for topics.',
     author='Mike Canoy',
-    author_email='canoym@wwu.edu',
+    author_email='mike@mikecanoy.net',
     url='https://github.com/solus-impar/slack-topics',
     packages=find_packages(),
     install_requires=requirements,
@@ -24,10 +24,10 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
     ],
-    py_modules=['slack-topics', 'topics'],
+    py_modules=['slack_topics', 'topics'],
     entry_points={
         'console_scripts': [
-            'slack-topics=slack_topics.slack_topics:main',
+            'slack-topics=slack_topics.bot:main',
         ]
     },
 )

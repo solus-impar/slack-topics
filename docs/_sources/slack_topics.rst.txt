@@ -1,7 +1,0 @@
-slack_topics module
-===================
-
-.. automodule:: slack_topics
-    :members:
-    :undoc-members:
-    :show-inheritance:

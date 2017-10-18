@@ -1,6 +1,33 @@
+"""slack-topics: utilities for fetching topics."""
 import re
 import sys
 import requests
+from bs4 import BeautifulSoup
+
+
+def fetch_json(url):
+    """Fetch data from a URL and attempt to parse it as JSON."""
+    error = "slack-topics: {}"
+
+    try:
+        response = requests.get(url)
+    except requests.ConnectionError:
+        sys.exit(error.format(
+            "Cannot connect to {}".format(url)
+        ))
+
+    status_code = response.status_code
+    if status_code == 200:
+        try:
+            return response.json()
+        except ValueError:
+            sys.exit(error.format(
+                "Invalid JSON at {}".format(url)
+            ))
+    else:
+        sys.exit(error.format(
+            "{} fetching {}".format(status_code, url)
+        ))
 
 
 def topic(c):
@@ -17,18 +44,7 @@ def uncamel(s):
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s).lower()
 
 
-def fetch_json(url):
-    """Fetch data from a URL and attempt to parse it as JSON."""
-    try:
-        response = requests.get(url)
-    except requests.ConnectionError:
-        sys.exit("tb2k: error: cannot connect to {}".format(url))
-
-    status_code = response.status_code
-    if status_code == 200:
-        try:
-            return response.json()
-        except ValueError:
-            sys.exit("tb2k: error: invalid JSON at {}".format(url))
-    else:
-        sys.exit("tb2k: error: {} fetching {}".format(status_code, url))
+def url_to_soup(url):
+    """url -> soup"""
+    html = requests.get(url)
+    return BeautifulSoup(html.text, 'html.parser')

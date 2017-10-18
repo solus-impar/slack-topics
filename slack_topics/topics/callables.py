@@ -14,10 +14,8 @@ Raises:
     Not required, but use when needed.
 """
 import random
-import wikipedia
-from slack_topics.topics.utils import topic, fetch_json
-import requests
-from bs4 import BeautifulSoup
+import re
+from slack_topics.topics.utils import fetch_json, topic, url_to_soup
 
 
 @topic
@@ -25,12 +23,9 @@ def random_man_page():
     """Randomly select a man page from Ubuntu manuals."""
     sec = random.randrange(1, 9)
     man_url = "http://manpages.ubuntu.com/manpages/xenial/man{}/".format(sec)
-    man_html = requests.get(man_url)
-    man_soup = BeautifulSoup(man_html.text, 'html.parser')
-
+    man_soup = url_to_soup(man_url)
     man_page = random.choice(man_soup.find_all('a'))['href']
     link = "{}{}".format(man_url, man_page)
-
     for relation in [['.', '('], ['.', ')'], ['html', '']]:
         man_page = man_page.replace(relation[0], relation[1], 1)
 
@@ -38,14 +33,19 @@ def random_man_page():
 
 
 @topic
-def random_wikipedia_programming_language():
+def random_programming_language():
     """Randomly select a programming language from Wikipedia."""
-    title = 'List of programming languages'
-    page = wikipedia.page(title=title)
-    lang = random.choice(page.links)
-    lang_url = "https://en.wikipedia.org/wiki/{}".format(lang.replace(' ', '_'))
+    wiki_url = 'https://en.wikipedia.org/wiki/List_of_programming_languages'
+    wiki_soup = url_to_soup(wiki_url)
+    lang_list = wiki_soup.find_all('div', class_='div-col columns ' \
+        'column-count column-count-2')
+    lang_sublist = []
+    for link in random.choice(lang_list).find_all('a', href=True):
+        lang_sublist.append(link)
+    lang = random.choice(lang_sublist)
+    lang_url = "https://en.wikipedia.org{}".format(lang['href'])
 
-    return lang, lang_url, ''
+    return lang['title'], lang_url, ''
 
 
 @topic
@@ -84,6 +84,48 @@ def random_cmd_challenge():
     cmd_json = fetch_json(cmd_url.format('challenges/challenges.json'))
     cmd_num = random.randrange(0, 29)
     cmd_name = cmd_json[cmd_num]['slug']
-    link = cmd_url.format("#{}".format(cmd_name))
+    link = cmd_url.format("#/{}".format(cmd_name))
 
     return cmd_name, link, ''
+
+
+@topic
+def trending_on_github():
+    """Select the current trending repository this week on GitHub."""
+    hub_url = 'https://github.com/trending?since=weekly'
+    hub_soup = url_to_soup(hub_url)
+    repo_list = hub_soup.find('ol', class_='repo-list')
+    repo = repo_list.find('a')['href']
+    link = "https://github.com{}".format(repo)
+
+    return repo[1:], link, ''
+
+
+@topic
+def random_hackerrank_challenge():
+    """Randomly select a challenge from hackerrank.com."""
+    rank_url = 'https://hackerrank.com/dashboard'
+    rank_soup = url_to_soup(rank_url)
+    domains = []
+    for link in rank_soup.find_all('a', \
+        href=re.compile(r'/domains/(?!tutorials)')):
+        domains.append(link['href'])
+
+    domain_url = "https://hackerrank.com{}".format(random.choice(domains))
+    domain_soup = url_to_soup(domain_url)
+
+    subdomain_list = domain_soup.find('ul', id='challengeAccordion')
+    subdomains = [link['href'] for link in subdomain_list.find_all('a')]
+
+    challenges_url = "https://hackerrank.com{}".format( \
+        random.choice(subdomains))
+    challenges_soup = url_to_soup(challenges_url)
+    challenges = []
+    for link in challenges_soup.find_all('a', href=re.compile(r'/challenges/' \
+        '(?!.*forum$|.*leaderboard$|.*submissions$)')):
+        challenges.append(link)
+
+    challenge = random.choice(challenges)
+    challenge_url = "https://hackerrank.com{}".format(challenge['href'])
+
+    return challenge.text, challenge_url, ''
