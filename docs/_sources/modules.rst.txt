@@ -1,9 +1,0 @@
-slack-topics
-============
-
-.. toctree::
-   :maxdepth: 4
-
-   setup
-   slack_topics
-   topics
