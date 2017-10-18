@@ -2,22 +2,22 @@
 import os
 import sys
 import random
+from typing import Tuple
 import requests
 from slackclient import SlackClient
 import slack_topics.topics.callables as tc
 
 
-def find_id(channel, bot):
+def find_id(channel: str, bot: SlackClient) -> Tuple[str, str]:
     """Find the ID of a channel and whether it is public or private.
 
     Args:
-        channel (string): Name of channel, i.e. `general`.
-        bot (SlackClient): Slack-bot for API calls.
+        channel: Name of channel, i.e. `general`.
+        bot: Slack-bot for API calls.
 
     Returns:
-        channel_id, channel_type (tuple of strings): `channel_id` for API
-            calls when you can't use just `channel`. `channel_type` can be
-            'channel' or 'group'.
+        channel_id, channel_type: `channel_id` for API calls when you can't
+            use just `channel`. `channel_type` can be 'channel' or 'group'.
 
     Raises:
         None
@@ -48,7 +48,7 @@ def find_id(channel, bot):
         ))
 
 
-def main():
+def main() -> None:
     """Set a channel topic to one from topics.callables
 
     Args:

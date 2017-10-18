@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def fetch_json(url):
+def fetch_json(url: str) -> dict:
     """Fetch data from a URL and attempt to parse it as JSON."""
     error = "slack-topics: {}"
 
@@ -44,7 +44,7 @@ def uncamel(s):
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s).lower()
 
 
-def url_to_soup(url):
+def url_to_soup(url: str) -> BeautifulSoup:
     """url -> soup"""
     html = requests.get(url)
     return BeautifulSoup(html.text, 'html.parser')

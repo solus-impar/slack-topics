@@ -15,11 +15,12 @@ Raises:
 """
 import random
 import re
+from typing import Tuple
 from slack_topics.topics.utils import fetch_json, topic, url_to_soup
 
 
 @topic
-def random_man_page():
+def random_man_page() -> Tuple[str, str, str]:
     """Randomly select a man page from Ubuntu manuals."""
     sec = random.randrange(1, 9)
     man_url = "http://manpages.ubuntu.com/manpages/xenial/man{}/".format(sec)
@@ -33,7 +34,7 @@ def random_man_page():
 
 
 @topic
-def random_programming_language():
+def random_programming_language() -> Tuple[str, str, str]:
     """Randomly select a programming language from Wikipedia."""
     wiki_url = 'https://en.wikipedia.org/wiki/List_of_programming_languages'
     wiki_soup = url_to_soup(wiki_url)
@@ -49,7 +50,7 @@ def random_programming_language():
 
 
 @topic
-def top_hacker_news_story():
+def top_hacker_news_story() -> Tuple[str, str, str]:
     """Select the current top Hacker News story."""
     hn_api = 'https://hacker-news.firebaseio.com/v0'
     hn_url = 'https://news.ycombinator.com'
@@ -66,7 +67,7 @@ def top_hacker_news_story():
 
 
 @topic
-def random_xkcd():
+def random_xkcd() -> Tuple[str, str, str]:
     """Select a random xkcd comic"""
     xkcd = 'https://xkcd.com'
     current = fetch_json("{}/info.0.json".format(xkcd))
@@ -78,7 +79,7 @@ def random_xkcd():
 
 
 @topic
-def random_cmd_challenge():
+def random_cmd_challenge() -> Tuple[str, str, str]:
     """Randomly select a challenge from cmdchallenge.com."""
     cmd_url = "https://cmdchallenge.com/{}"
     cmd_json = fetch_json(cmd_url.format('challenges/challenges.json'))
@@ -90,7 +91,7 @@ def random_cmd_challenge():
 
 
 @topic
-def trending_on_github():
+def trending_on_github() -> Tuple[str, str, str]:
     """Select the current trending repository this week on GitHub."""
     hub_url = 'https://github.com/trending?since=weekly'
     hub_soup = url_to_soup(hub_url)
@@ -102,7 +103,7 @@ def trending_on_github():
 
 
 @topic
-def random_hackerrank_challenge():
+def random_hackerrank_challenge() -> Tuple[str, str, str]:
     """Randomly select a challenge from hackerrank.com."""
     rank_url = 'https://hackerrank.com/dashboard'
     rank_soup = url_to_soup(rank_url)
