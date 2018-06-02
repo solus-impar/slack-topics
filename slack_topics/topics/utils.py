@@ -37,11 +37,13 @@ def topic(c):
 
 
 def uncamel(s):
-    """
-    Convert CamelCase class names into lower_snake_case.
-    Taken from http://stackoverflow.com/a/1176023/3288364
-    """
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s).lower()
+    """Convert CamelCase class names into lower_snake_case."""
+    output = ''
+    for i, c in enumerate(s):
+        if c.isupper() and i > 0 and not s[i - 1].isupper():
+            c = '_' + c
+        output += c.lower()
+    return output
 
 
 def url_to_soup(url: str) -> BeautifulSoup:
