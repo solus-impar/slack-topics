@@ -1,5 +1,4 @@
 """slack-topics: utilities for fetching topics."""
-import re
 import sys
 import requests
 from bs4 import BeautifulSoup
