@@ -38,8 +38,7 @@ def random_programming_language() -> Tuple[str, str, str]:
     """Randomly select a programming language from Wikipedia."""
     wiki_url = 'https://en.wikipedia.org/wiki/List_of_programming_languages'
     wiki_soup = url_to_soup(wiki_url)
-    lang_list = wiki_soup.find_all('div', class_='div-col columns ' \
-        'column-count column-count-2')
+    lang_list = wiki_soup.find_all('div', class_='div-col columns column-width')
     lang_sublist = []
     for link in random.choice(lang_list).find_all('a', href=True):
         lang_sublist.append(link)
