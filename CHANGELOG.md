@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.7.3 - 2018-06-03
+- Better unicode support in `uncamel`
+- Fix `random_programming_language`
+- Add topic filtering
+
 ## 0.7.2 - 2017-10-17
 - Added `Trending on GitHub` and `Random HackerRank Challenge` to topics.
 - Rewrite `Random Programming Language` with `beautifulsoup4` rather than

@@ -1,11 +1,10 @@
 """slack-topics: utilities for fetching topics."""
-import re
 import sys
 import requests
 from bs4 import BeautifulSoup
 
 
-def fetch_json(url):
+def fetch_json(url: str) -> dict:
     """Fetch data from a URL and attempt to parse it as JSON."""
     error = "slack-topics: {}"
 
@@ -37,14 +36,16 @@ def topic(c):
 
 
 def uncamel(s):
-    """
-    Convert CamelCase class names into lower_snake_case.
-    Taken from http://stackoverflow.com/a/1176023/3288364
-    """
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s).lower()
+    """Convert CamelCase class names into lower_snake_case."""
+    output = ''
+    for i, c in enumerate(s):
+        if c.isupper() and i > 0 and not s[i - 1].isupper():
+            c = '_' + c
+        output += c.lower()
+    return output
 
 
-def url_to_soup(url):
+def url_to_soup(url: str) -> BeautifulSoup:
     """url -> soup"""
     html = requests.get(url)
     return BeautifulSoup(html.text, 'html.parser')

@@ -10,7 +10,7 @@ requirements = [str(ir.req) for ir in install_requirements]
 
 setup(
     name='slack-topics',
-    version='0.7.2',
+    version='0.7.3',
     description='A python slack bot for topics.',
     author='Mike Canoy',
     author_email='mike@mikecanoy.net',

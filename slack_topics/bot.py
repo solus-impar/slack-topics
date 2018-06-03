@@ -2,22 +2,22 @@
 import os
 import sys
 import random
+from typing import Tuple
 import requests
 from slackclient import SlackClient
 import slack_topics.topics.callables as tc
 
 
-def find_id(channel, bot):
+def find_id(channel: str, bot: SlackClient) -> Tuple[str, str]:
     """Find the ID of a channel and whether it is public or private.
 
     Args:
-        channel (string): Name of channel, i.e. `general`.
-        bot (SlackClient): Slack-bot for API calls.
+        channel: Name of channel, i.e. `general`.
+        bot: Slack-bot for API calls.
 
     Returns:
-        channel_id, channel_type (tuple of strings): `channel_id` for API
-            calls when you can't use just `channel`. `channel_type` can be
-            'channel' or 'group'.
+        channel_id, channel_type: `channel_id` for API calls when you can't
+            use just `channel`. `channel_type` can be 'channel' or 'group'.
 
     Raises:
         None
@@ -48,7 +48,7 @@ def find_id(channel, bot):
         ))
 
 
-def main():
+def main() -> None:
     """Set a channel topic to one from topics.callables
 
     Args:
@@ -63,12 +63,17 @@ def main():
 
     token = os.environ.get('SLACK_TOPICS_TOKEN')
     channel = os.environ.get('SLACK_TOPICS_CHANNEL') or 'general'
+    filter_path = os.environ.get('SLACK_TOPICS_FILTER')
     error = "slack-topics: error: {}"
 
     if not token:
         sys.exit(error.format(
             'SLACK_TOPICS_TOKEN environment variable is not set'
         ))
+
+    if filter_path:
+        with open(filter_path, 'r') as filter_file:
+            filter_words = filter_file.read().splitlines()
 
     bot = SlackClient(token)
     if bot.rtm_connect():
@@ -81,6 +86,19 @@ def main():
                 topic_callables.append(attr)
         topic_callable = random.choice(topic_callables)
         topic, message, topic_channel = topic_callable()
+
+        if filter_path:
+            for word in filter_words:
+                if word.lower() in topic.lower() or \
+                    word.lower() in message.lower():
+                    print('slack-topics: info: topic caught in filter')
+                    print("slack-topics: info: topic: '{}', message: '{}', " \
+                        "word: '{}'".format(topic, message, word))
+                    topic_callables.remove(topic_callable)
+                    topic_callable = random.choice(topic_callables)
+                    topic, message, topic_channel = topic_callable()
+                    break
+
         if topic_channel:
             channel = topic_channel
 
